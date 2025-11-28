@@ -13,19 +13,17 @@ const initialSidebarItems = [
 ];
 
 const NavItem = ({ icon, label, isActive, onClick }) => (
-  // Retained NavItem styling
-  <a
-    href="#"
-    onClick={(e) => { e.preventDefault(); onClick(); }}
-    className={`flex items-center p-3 rounded-lg transition-colors duration-150 ${
+  <button
+    onClick={onClick}
+    className={`flex items-center w-full px-3 py-2.5 rounded-lg transition-all duration-200 text-sm ${
       isActive
-        ? 'bg-red-600 text-white shadow-lg'
-        : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
+        ? 'bg-red-600 text-white shadow-sm font-semibold'
+        : 'text-gray-700 hover:bg-red-50 hover:text-red-600 font-medium'
     }`}
   >
-    <span className="w-5 h-5 mr-3">{icon}</span>
-    <span className="font-medium text-sm">{label}</span>
-  </a>
+    <span className="w-5 h-5 mr-3 text-base">{icon}</span>
+    <span>{label}</span>
+  </button>
 );
 
 const Sidebar = () => {
@@ -54,35 +52,48 @@ const Sidebar = () => {
   };
 
   return (
-    // Retained Sidebar container styling
-    <div className="flex flex-col flex-shrink-0 bg-white border-r border-gray-200 w-64 p-4 rounded-lg shadow-xl m-4">
-      <div className="flex items-center justify-between h-16 border-b border-gray-200">
+    <div className="flex flex-col flex-shrink-0 bg-white border-r border-gray-200 w-64">
+      <div className="flex items-center justify-between h-16 border-b border-gray-200 px-4">
         <div className="flex items-center">
-          {/* Using placeholder image URL */}
-          <img src={logoSrc} alt="TUP Clinic Logo" className="w-8 h-8 mr-2 rounded-md"/>
-          <span className="text-xl font-bold text-red-600">TUP</span>
-          <span className="text-sm text-gray-500 ml-1">Clinic</span>
+          <img src={logoSrc} alt="TUP Clinic Logo" className="w-8 h-8 mr-2 rounded"/>
+          <span className="text-lg font-bold text-red-600">TUP</span>
+          <span className="text-xs text-gray-500 ml-1">Clinic</span>
         </div>
-        <button 
-          onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-          className="p-2 rounded-full hover:bg-gray-100 text-gray-700 focus:outline-none relative"
-        >
-          {/* Using placeholder image URL */}
-          <img src={avatarSrc} alt="Profile" className="w-8 h-8 rounded-full" />
-        </button>
-        
-        {/* Profile Dropdown Menu */}
-        {isProfileMenuOpen && (
-          // Fixed positioning to be relative to the sidebar container (m-4 is outside)
-          <div className="absolute right-6 top-6 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-10 p-2">
-            <div className="p-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 cursor-pointer rounded-md" onClick={handleViewProfile}>View Profile</div>
-            <div className="p-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 cursor-pointer rounded-md" onClick={handleSettings}>Settings</div>
-            <div className="p-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer rounded-md border-t border-gray-100 mt-1 pt-2" onClick={handleSignOut}>Sign Out</div>
-          </div>
-        )}
+        <div className="relative">
+          <button
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+            className="p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition duration-150 relative"
+          >
+            <img src={avatarSrc} alt="Profile" className="w-8 h-8 rounded-full" />
+          </button>
+
+          {isProfileMenuOpen && (
+            <div className="absolute right-0 top-12 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 py-1">
+              <button
+                onClick={handleViewProfile}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition duration-150"
+              >
+                View Profile
+              </button>
+              <button
+                onClick={handleSettings}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition duration-150"
+              >
+                Settings
+              </button>
+              <div className="border-t border-gray-100 my-1"></div>
+              <button
+                onClick={handleSignOut}
+                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-150"
+              >
+                Sign Out
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
-      <nav className="flex-grow py-4 space-y-2 overflow-y-auto">
+      <nav className="flex-grow py-3 px-2 space-y-1 overflow-y-auto">
         {initialSidebarItems.map((item) => (
           <NavItem
             key={item.view}
@@ -93,17 +104,15 @@ const Sidebar = () => {
           />
         ))}
 
-        <div className="pt-4 mt-4 border-t border-gray-200">
+        <div className="pt-2 mt-3 border-t border-gray-200 space-y-1">
           <NavItem icon="❓" label="Help" isActive={currentView === 'help'} onClick={() => navigate('help')} />
         </div>
       </nav>
 
-      <div className="p-4 border-t border-gray-200 text-xs">
-        <p className="text-gray-600">Logged in as: Dr. Rivera</p>
-        <p className="text-gray-600">Last backup: 2 days ago</p>
-        <div className="flex justify-between mt-2">
-          <button className="text-red-600 hover:text-red-700" onClick={() => navigate('settings')}>Settings</button>
-          <button className="text-red-600 hover:text-red-700" onClick={handleSignOut}>Sign Out</button>
+      <div className="p-4 border-t border-gray-200">
+        <div className="text-xs">
+          <p className="font-semibold text-gray-900">Dr. Rivera</p>
+          <p className="text-gray-500 mt-1">Last backup: 2 days ago</p>
         </div>
       </div>
     </div>

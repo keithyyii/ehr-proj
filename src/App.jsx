@@ -10,9 +10,9 @@ import Dashboard from './pages/Dashboard.jsx';
 
 // Placeholder Pages (To be replaced with full page components later)
 const PlaceholderPage = ({ view }) => (
-    <div className="flex-1 p-8 bg-gray-100 text-gray-900">
-        <h1 className="text-2xl font-bold">{view.charAt(0).toUpperCase() + view.slice(1)}</h1>
-        <p className="mt-4 text-gray-600">This view is currently under construction. Navigation is working correctly!</p>
+    <div className="flex-1 p-8 bg-gray-50 text-gray-900">
+        <h1 className="text-3xl font-bold text-gray-900">{view.charAt(0).toUpperCase() + view.slice(1)}</h1>
+        <p className="mt-4 text-gray-500 text-base">This view is currently under construction. Navigation is working correctly!</p>
     </div>
 );
 
@@ -42,12 +42,8 @@ const Router = () => {
 
 const App = () => {
     return (
-        // Global container using the light background color
-        <div className="flex h-screen bg-gray-100 font-inter">
-            {/* Sidebar (left column) */}
+        <div className="flex h-screen bg-gray-50">
             <Sidebar />
-
-            {/* Main Content Area (Header + Router) */}
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Header />
                 <Router />
